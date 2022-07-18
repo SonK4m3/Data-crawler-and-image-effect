@@ -21,4 +21,4 @@ python image_extract.py
 ```
 - image url has saved in `.\gettyimages\image_data\` folder
 - list all image in `image_data.json`
-- list image folowwing page i in `image_data_page_i.json`
+- list image following page i in `image_data_page_i.json`
