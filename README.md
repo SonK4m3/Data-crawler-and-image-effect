@@ -15,7 +15,10 @@ pip install requests
 ```
 
 How to work
-- Run following command for collecte images in 5 pages from Gettyimages
+- Run following command for collecte image url in 5 pages from Gettyimages
 ```
 python image_extract.py
 ```
+- image url has saved in `.\gettyimages\image_data\` folder
+- list all image in `image_data.json`
+- list image folowwing page i in `image_data_page_i.json`
