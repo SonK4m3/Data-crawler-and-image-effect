@@ -19,3 +19,9 @@ Run following command for infinite execution:
 ```
 python loop.py
 ```
+## **Debug**
+- run following command
+```
+python main.py
+```
+- url saved in debug folder
