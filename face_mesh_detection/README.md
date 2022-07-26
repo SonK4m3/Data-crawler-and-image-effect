@@ -85,8 +85,30 @@ Solution APIs
             is composed of x, y and z. x and y are normalized to [0.0, 1.0] by the image width and height respectively. z represents 
             the landmark depth with the depth at center of the head being the origin, and the smaller the value the closer the landmark 
             is to the camera. The magnitude of z uses roughly the same scale as x.
-        
+            
+            
+## **Landmark point**
 
+    - Standard facial datasets provide annotations of 68 x and y coordinates that indicate the most important points on a person’s face. 
+    Dlib is a commonly used open source library that can recognize these landmarks in an image.
+    - Newer datasets and algorithms leverage a dense “face mesh” with over 468 3D face landmarks. This approach uses machine learning 
+    to infer the 3D facial surface from a single camera input, without a dedicated depth sensor. Google’s MediaPipe solution uses dense 
+    facial landmarks.
+
+Facial Landmark Datasets
+
+    - 300W is a face data set consisting of 300 indoor images and 300 outdoor wild images. The images cover a variety of identities, 
+    facial expressions, lighting conditions, poses, occlusions, and face sizes.
+    - Compared to other datasets, the 300W database has a relatively high proportion of partially occluded images and covers additional 
+    facial expressions. Images were annotated with 68 point markers using a semi-automatic method. Images from the database are carefully 
+    selected to represent challenging samples of natural face instances under unrestricted conditions.
+    
+    - 300 Videos in the Wild (300-VW) is a dataset for evaluating landmark tracking algorithms. It contains 114 videos containing faces, 
+    each approximately 1 minute in length at 25-30 fps. All frames are annotated with the same 68 markers used for the 300W dataset.
+    
+    - Annotated Facial Landmarks in the Wild (AFLW) is a large collection of annotated facial images sourced from Flickr. The images have 
+    a wide variety of pose, facial expressions, ethnicity, age, gender, as well as diverse imaging conditions. A total of approximately 
+    25,000 faces are annotated, with up to 21 landmarks per image.
 
 
 
