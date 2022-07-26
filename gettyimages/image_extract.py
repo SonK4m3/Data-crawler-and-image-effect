@@ -1,6 +1,3 @@
-from click import format_filename
-
-
 try:
     from bs4 import BeautifulSoup
     import requests
