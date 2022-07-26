@@ -2,10 +2,18 @@ try:
     import cv2 as cv
     import mediapipe as mp
     import os
+    import json
 except Exception as e:
     print('Caught error while importing {}'.format(e))
 
-IMAGE_DIR = './Task_3/Photos'
+IMAGE_DIR = './face_mesh_detection/Photos'
+SAVE_DIR = './face_mesh_detection/FaceDetectionSavedImage'
+MODEL_SELECTION = 1
+MIN_DETECTION_CONFIDENCE = 0.5
+
+def make_dir(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
 # resize image to standard image 
 def resize_image(image, height_size=500):
@@ -29,11 +37,15 @@ def draw_rectangle(image, location:list):
 
 def get_face_detection():
 
+    make_dir(SAVE_DIR)
+
     list_dir = os.listdir(IMAGE_DIR)
     #import the main face detection model
     mp_face_detection = mp.solutions.face_detection
 
-    with mp_face_detection.FaceDetection(model_selection=1, min_detection_confidence=0.5) as face_detection:
+    with mp_face_detection.FaceDetection(model_selection=MODEL_SELECTION, min_detection_confidence=MIN_DETECTION_CONFIDENCE) as face_detection:
+        data = []
+
         for indx, file in enumerate(list_dir):
             image = cv.imread(IMAGE_DIR + '/' + file)
             image = resize_image(image)
@@ -49,6 +61,7 @@ def get_face_detection():
                 print('Image have no one')
                 continue 
             annotated_image = image.copy()
+            location = []
             for num, detection in enumerate(results.detections):
                 #get location of detection
                 bbox = detection.location_data.relative_bounding_box
@@ -59,9 +72,31 @@ def get_face_detection():
                 xmin, ymin, width_detection, height_detection = bbox_points[:4]
                 print('\t{}: '.format(num), end='')
                 print('(x, y, width, height) = ({}, {}, {}, {})'.format(xmin, ymin, width_detection, height_detection))
+
+                #json 
+                json_data = {
+                    'x': xmin,
+                    'y': ymin,
+                    'width': width_detection,
+                    'height': height_detection
+                }
+
+                location.append(json_data)
+            data.append({
+                'filename': IMAGE_DIR + '/' + file,
+                'face_detection': location
+            })
+            #save image
+            cv.imwrite(SAVE_DIR + '/' + file, annotated_image)
             #show image
-            cv.imshow('face_detection', annotated_image)
-            cv.waitKey(0)
+            # cv.imshow('face_detection', annotated_image)
+            # cv.waitKey(0)
+        
+        write_json('./face_mesh_detection/face_detection_results.json', data=data)
+
+def write_json(filename, data):
+    with open(filename, 'w', encoding='utf8') as f:
+        json.dump(data, f, indent=4, ensure_ascii= False)
 
 
 if __name__ == '__main__':
