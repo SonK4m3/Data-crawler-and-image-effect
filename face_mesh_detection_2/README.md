@@ -6,19 +6,20 @@ cv2
 mediapipe
 numpy
 ```
-## Step 1 
+## Step
+Step 1
     Using face detection to detect dimension has faces
-## Step 2
+Step 2
     Using face mesh detection to get face mesh in the face
     We have vector position of landmark points is (x, y, z) but we append (x, y) to List
-## Step 3
+Step 3
     Calculating convex hull of list position of landmark points 
     We draw convex hull and crop it into new image
 
 ## **SWAPPING FACE**
-    We swaped face in source image to face in destination image
+We swaped face in source image to face in destination image
 ## Reference
-    `https://pysource.com/2019/05/28/face-swapping-explained-in-8-steps-opencv-with-python/`
+`https://pysource.com/2019/05/28/face-swapping-explained-in-8-steps-opencv-with-python`
 ## Requirements
 ```
 cv2
