@@ -43,6 +43,7 @@ with mp_face_mesh.FaceMesh(static_image_mode=True,
             triangle = subdiv.getTriangleList()
             triangle = np.array(triangle).astype(int)
             
+            #get the landmark points indexes of each triangle
             indexes_triangles = []
             for t in triangle:
                 pt1 = (t[0], t[1])
@@ -67,19 +68,6 @@ with mp_face_mesh.FaceMesh(static_image_mode=True,
                 pt1 = landmark_points[triangle_index[0]]
                 pt2 = landmark_points[triangle_index[1]]
                 pt3 = landmark_points[triangle_index[2]]
-                triangle1 = np.array([pt1,pt2,pt3], np.int32)
-                
-                rect1 = cv.boundingRect(triangle1)
-                (x,y,w,h) = rect1
-                cropped_triangle = img[y:y+h, x:x+w]
-                cropped_mask = np.zeros((h,w), np.uint8)
-                
-                points = np.array([[pt1[0] - x, pt1[1] - y],
-                                   [pt2[0] - x, pt2[1] - y],
-                                   [pt3[0] - x, pt3[1] - y]], np.int32)
-                
-                cv.fillConvexPoly(cropped_mask, points, 255)
-                cropped_triangle = cv.bitwise_and(cropped_triangle, cropped_triangle, mask=cropped_mask)
         
                 #draw
                 cv.line(blank, pt1, pt2, 255, 1)
@@ -87,7 +75,7 @@ with mp_face_mesh.FaceMesh(static_image_mode=True,
                 cv.line(blank, pt3, pt1, 255, 1)
         
         #save
-        cv.imwrite('./delaunay_triangulation.jpg', blank)
+        # cv.imwrite('./delaunay_triangulation.jpg', blank)
         #show
         cv.imshow('blank', blank)
 
