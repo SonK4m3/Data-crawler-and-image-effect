@@ -65,7 +65,7 @@ class Scraper:
         self.image_urls = image_urls
 
     def image_extract(self, start=1):
-
+        //setting config before crawl
         url = self.config.IMAGE_SEARCH_URL
         save_dir = self.config.save_dir
         save_file = self.config.save_file
